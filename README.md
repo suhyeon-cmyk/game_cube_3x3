@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 3x3 큐브 가이드
 
-## Getting Started
+초보자 층별 풀이법(7단계)으로 3x3 큐브를 자동으로 풀어 보여주고, 직접 풀 때는 단계별로 안내하는 Next.js 사이트입니다.
 
-First, run the development server:
+## 기능
+
+- 맞춰진 큐브에서 시작, 무작위 섞기
+- **자동 풀이**: 단계별 / 전체 풀기, 한 수씩 천천히 애니메이션, 일시정지·한 수씩·정지, 속도 조절, 실행 중인 공식 강조
+- **직접 풀기**: 버튼·키보드·스티커 드래그로 회전, 현재 단계와 진행도, 다음에 돌릴 층을 화살표와 문장으로 안내, 맞추는 조각 강조, 힌트 한 수 실행
+
+## 실행
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm test         # 큐브 로직·솔버 테스트 (무작위 섞기 1000회 풀이 검증)
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 구조
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `src/lib/cube` — 큐브 상태(54칸 스티커), 회전, 표기법
+- `src/lib/solver` — 단계 판별, 단계별 솔버(BFS), 힌트 문장
+- `src/store` — zustand 스토어 (애니메이션 큐, 재생, 안내 수순)
+- `src/components` — 3D 큐브(react-three-fiber)와 패널 UI
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+풀이 공식과 설계는 [CLAUDE.md](CLAUDE.md)에 정리되어 있습니다.
